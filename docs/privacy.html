@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Política de Privacidad — Nexora</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <img src="logo.png" alt="Nexora Logo">
+      </div>
+      <div>
+        <h1>Política de Privacidad — <strong>Nexora</strong></h1>
+        <p class="lead">Última actualización: <span id="updated">14 de Noviembre de 2025</span> · Contacto: <span id="contact">hall127-contact@proton.me</span></p>
+        <div class="meta">
+          <div class="pill">Alcance: Discord</div>
+          <div class="pill">Servicios: Moderación, Tickets, Sorteos, Bienvenida/Despedida</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>1. Introducción</h2>
+        <p>Esta Política de Privacidad explica cómo <strong>Nexora</strong> ("el Bot") recopila, utiliza, almacena y protege datos cuando se añade a servidores de Discord. El Bot cumple con los Términos de Servicio de desarrolladores de Discord y minimiza la recopilación de datos personales.</p>
+      </section>
+
+      <section>
+        <h2>2. Datos que recopilamos</h2>
+        <p>El Bot únicamente recopila los datos mínimos necesarios para su correcto funcionamiento:</p>
+        <ul>
+          <li>IDs: <code>user_id</code>, <code>guild_id</code>, <code>role_id</code>, <code>channel_id</code></li>
+          <li>Nombres públicos y etiquetas (tal como Discord los proporciona)</li>
+          <li>Roles del miembro dentro del servidor</li>
+          <li>Información de boost del servidor (<code>premiumSubscriptionCount</code>, <code>premiumTier</code>)</li>
+          <li>Contenido de mensajes únicamente cuando es necesario (comandos con prefijo, generación de transcript, o logging si está habilitado)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Datos proporcionados voluntariamente</h2>
+        <p>Los administradores pueden introducir texto o configuraciones para personalizar el comportamiento del Bot, por ejemplo:</p>
+        <ul>
+          <li>Mensajes de bienvenida/despedida</li>
+          <li>Mensajes predefinidos en paneles de tickets</li>
+          <li>Configuración de roles multiplicadores para sorteos</li>
+          <li>Prefijos personalizados</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Uso del contenido de mensajes</h2>
+        <p>El contenido de mensajes se procesa <strong>solo</strong> en casos concretos:</p>
+        <ul>
+          <li>Comandos con prefijo (si están habilitados)</li>
+          <li>Generación de transcript al cerrar un ticket (se genera y envía; no se almacena fuera de Discord)</li>
+          <li>(Proximamente) Logging de mensajes editados/eliminados, solo si el servidor activa esa opción</li>
+        </ul>
+        <p class="note">El Bot no almacena contenido de mensajes a largo plazo ni usa esos datos para entrenar modelos de IA.</p>
+      </section>
+
+      <section>
+        <h2>5. Almacenamiento y retención</h2>
+        <p>Se guarda la información estrictamente necesaria:</p>
+        <ul>
+          <li>Datos de sorteos y participaciones — eliminados <strong>30 días</strong> después de finalizar.</li>
+          <li>Datos temporales de tickets — eliminados al cerrar permanentemente el ticket (o al reabrir si aplica).</li>
+          <li>Configuraciones por servidor (persistentes mientras el bot esté en el servidor).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Compartición de datos</h2>
+        <p>El Bot no vende ni comparte datos con terceras partes, anunciantes o servicios de análisis externos. La información se utiliza únicamente para las funciones del Bot dentro del servidor.</p>
+      </section>
+
+      <section>
+        <h2>7. Opciones de los usuarios</h2>
+        <p>Los usuarios y administradores pueden optar por no participar o desactivar funciones:</p>
+        <ul>
+          <li>Si un usuario no usa comandos con prefijo, su contenido no será procesado.</li>
+          <li>El propietario del servidor puede desactivar transcripts o logging.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>8. Seguridad</h2>
+        <p>Se aplican medidas de seguridad razonables, como accesos restringidos a la base de datos y mínima recolección de datos. No obstante, ningún sistema es 100% seguro.</p>
+      </section>
+
+      <section>
+        <h2>9. Menores</h2>
+        <p>El Bot no recopila intencionalmente información de menores de 13 años y cumple con las condiciones de uso de Discord.</p>
+      </section>
+
+      <section>
+        <h2>10. Cambios en la política</h2>
+        <p>Podemos actualizar esta política. Los cambios significativos se anunciarán en el servidor de soporte o mediante el propio Bot.</p>
+      </section>
+
+      <section>
+        <h2>11. Contacto</h2>
+        <p>Si deseas solicitar eliminación de datos o tienes preguntas, contacta a:</p>
+        <ul>
+          <li>Servidor de soporte: <strong>https://discord.gg/NZQE5EHsvh</strong></li>
+          <li>Email: <strong>hall127-contact@proton.me</strong></li>
+        </ul>
+      </section>
+
+      <footer>
+      <div>
+        <a href="index.html" class="link">Página Principal</a> ·
+        <a href="privacidad.html" class="link">Política de Privacidad</a> ·
+        <a href="terminos.html" class="link">Términos de Servicio</a>
+      </div>
+      <div>
+        <a class="btn" href="index.html">Volver</a>
+      </div>
+    </footer>
+    </main>
+  </div>
+</body>
+</html>
