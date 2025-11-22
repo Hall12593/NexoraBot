@@ -2,11 +2,13 @@
   {
     "titulo": "Noticias, IP, y sistema de errores",
     "fecha": "2025-11-22",
-    "ruta": "news/2025/noviembre/2025-11-22.json"
+    "ruta": "news/2025/noviembre/2025-11-22.json",
+    "altruta": "news/2025/noviembre/2025-11-22.json"
   },
   {
     "titulo": "La creacion del bot",
     "fecha": "2022-7-19",
-    "ruta": "news/2022/julio/2022-7-19.json"
+    "ruta": "news/2022/julio/2022-7-19.json",
+    "altruta": "news/2022/julio/2022-7-19.json"
   }
 ]
