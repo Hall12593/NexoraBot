@@ -1,84 +1,150 @@
-<div id="news-container" style="max-width: 700px; margin: auto; font-family: sans-serif;">
-    <h1>📰 Noticias del Bot</h1>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Noticias — Nexora</title>
+  <link rel="icon" type="image/x-icon" href="logo.ico" />
+  <link rel="stylesheet" href="css/style.css" />
+  <meta property="og:title" content="Nexora - Noticias">
+  <meta name="og:description" content="Últimas novedades y actualizaciones del bot Nexora.">
+  <meta property="og:image" content="logo.ico">
+</head>
+<body>
+  <div class="wrap">
 
-    <select id="news-select" style="padding: 8px; width: 100%; margin-bottom: 15px;">
-        <option value="">Selecciona una noticia...</option>
-    </select>
+    <!-- ================================================================
+         HEADER
+    ================================================================= -->
+    <header>
+      <div class="logo">
+        <img src="logo.png" alt="Nexora Logo">
+      </div>
+      <div>
+        <h1>Noticias — <strong>Nexora</strong></h1>
+        <p class="lead">Actualizaciones, cambios y novedades del bot.</p>
+        <div class="meta">
+          <div class="pill">Sistema: Noticias</div>
+          <div class="pill">Origen: GitHub</div>
+        </div>
+      </div>
+    </header>
 
-    <div id="news-view" style="padding: 15px; border: 1px solid #ccc; border-radius: 6px;">
-        <p>Selecciona una noticia para verla.</p>
-    </div>
-</div>
+    <!-- ================================================================
+         MAIN CONTENT
+    ================================================================= -->
+    <main>
 
-<script>
-const OWNER = "hall12593";
-const REPO  = "NexoraBot";
+      <section>
+        <h2>Últimas noticias</h2>
 
-// Rutas base
-const INDEX_URL = `https://${OWNER}.github.io/${REPO}/news/index.json`;
-const BASE_URL  = `https://${OWNER}.github.io/${REPO}/`;
+        <!-- Selector de noticias -->
+        <select id="news-select" class="input" style="width:100%;padding:10px;margin-bottom:20px;">
+          <option value="">Cargando noticias...</option>
+        </select>
 
-async function loadIndex() {
-    try {
-        const res = await fetch(INDEX_URL);
-        const indexList = await res.json();
+        <!-- Contenedor de noticia -->
+        <div id="news-view" class="card" style="padding:20px; border-radius:10px;">
+          <p>Selecciona una noticia para visualizarla.</p>
+        </div>
 
-        const select = document.getElementById("news-select");
-        select.innerHTML = `<option value="">Selecciona una noticia...</option>`;
+      </section>
 
-        indexList.forEach(entry => {
-            const op = document.createElement("option");
-            op.value = entry.ruta;
-            op.textContent = `${entry.titulo} (${entry.fecha})`;
-            select.appendChild(op);
-        });
+    </main>
 
-        // Cargar automáticamente la más reciente
-        if (indexList.length > 0) {
-            loadNews(indexList[0].ruta);
-            select.value = indexList[0].ruta;
-        }
+    <!-- ================================================================
+         FOOTER
+    ================================================================= -->
+    <footer>
+      <div>
+        <a href="index.html" class="link">Página Principal</a> ·
+        <a href="privacy.html" class="link">Política de Privacidad</a> ·
+        <a href="terms.html" class="link">Términos de Servicio</a>
+      </div>
+      <div>
+        <a class="btn" href="index.html">Volver</a>
+      </div>
+    </footer>
 
-    } catch (err) {
-        document.getElementById("news-view").innerHTML =
-            `<p style="color:red">❌ Error cargando index.json</p>`;
-        console.error(err);
-    }
-}
+  </div>
 
-async function loadNews(path) {
-    try {
-        const res = await fetch(BASE_URL + path);
-        const data = await res.json();
+  <!-- ================================================================
+       SCRIPT (Frontend Noticias)
+  ================================================================= -->
+  <script>
+  const OWNER = "hall12593";
+  const REPO  = "NexoraBot";
 
-        let html = `
-            <h2>${data.titulo}</h2>
-            <small>${data.fecha} — ${data.hora ?? "??:??"}</small>
-            <p style="white-space: pre-line; margin-top: 15px;">${data.contenido}</p>
-        `;
+  // Rutas base
+  const INDEX_URL = `https://${OWNER}.github.io/${REPO}/news/index.json`;
+  const BASE_URL  = `https://${OWNER}.github.io/${REPO}/`;
 
-        if (data.imagen_base64) {
-            html += `
-                <img src="data:image/png;base64,${data.imagen_base64}"
-                     style="max-width:100%; margin-top:15px; border-radius:8px;">
-            `;
-        }
+  async function loadIndex() {
+      const select = document.getElementById("news-select");
 
-        document.getElementById("news-view").innerHTML = html;
+      try {
+          const res = await fetch(INDEX_URL);
+          const indexList = await res.json();
 
-    } catch (err) {
-        document.getElementById("news-view").innerHTML =
-            `<p style="color:red">❌ Error cargando noticia: ${path}</p>`;
-        console.error(err);
-    }
-}
+          select.innerHTML = `<option value="">Selecciona una noticia...</option>`;
 
-document.getElementById("news-select").addEventListener("change", (e) => {
-    if (e.target.value !== "") {
-        loadNews(e.target.value);
-    }
-});
+          indexList.forEach(entry => {
+              const op = document.createElement("option");
+              op.value = entry.ruta;
+              op.textContent = `${entry.titulo} (${entry.fecha})`;
+              select.appendChild(op);
+          });
 
-// Cargar al iniciar
-loadIndex();
-</script>
+          // Auto-cargar la más reciente
+          if (indexList.length > 0) {
+              loadNews(indexList[0].ruta);
+              select.value = indexList[0].ruta;
+          }
+
+      } catch (err) {
+          document.getElementById("news-view").innerHTML =
+              `<p style="color:red">❌ Error cargando index.json.</p>`;
+          console.error(err);
+      }
+  }
+
+  async function loadNews(path) {
+      try {
+          const res = await fetch(BASE_URL + path);
+          const data = await res.json();
+
+          let html = `
+              <h2>${data.titulo}</h2>
+              <p class="lead">${data.fecha} — ${data.hora ?? "??:??"}</p>
+              <p style="white-space: pre-line; margin-top: 15px;">
+                  ${data.contenido}
+              </p>
+          `;
+
+          if (data.imagen_base64) {
+              html += `
+                  <img src="data:image/png;base64,${data.imagen_base64}"
+                       style="max-width:100%; border-radius:10px;margin-top:15px;">
+              `;
+          }
+
+          document.getElementById("news-view").innerHTML = html;
+
+      } catch (err) {
+          document.getElementById("news-view").innerHTML =
+              `<p style="color:red">❌ Error cargando noticia.</p>`;
+          console.error(err);
+      }
+  }
+
+  document.getElementById("news-select").addEventListener("change", (e) => {
+      if (e.target.value !== "") {
+          loadNews(e.target.value);
+      }
+  });
+
+  loadIndex();
+  </script>
+
+</body>
+</html>
