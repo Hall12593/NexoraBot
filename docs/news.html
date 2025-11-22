@@ -1,224 +1,270 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Noticias — Nexora</title>
-  <link rel="icon" type="image/x-icon" href="logo.ico" />
-  <link rel="stylesheet" href="css/style.css" />
-  <meta property="og:title" content="Nexora - Noticias">
-  <meta name="og:description" content="Últimas novedades y actualizaciones del bot Nexora.">
-  <meta property="og:image" content="logo.ico">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Noticias — Nexora</title>
+    <link rel="icon" type="image/x-icon" href="logo.ico" />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta property="og:title" content="Nexora - Noticias" />
+    <meta
+      name="og:description"
+      content="Últimas novedades y actualizaciones del bot Nexora."
+    />
+    <meta property="og:image" content="logo.ico" />
 
-  <!-- ============================================================
+    <!-- ============================================================
        CSS EXTRA PARA NEWS Y FORMATO DISCORD
   ============================================================ -->
-  <style>
-    /* SELECT Bonito */
-    #news-select {
-      background: var(--card);
-      color: #e6eef6;
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 15px;
-      outline: none;
-      transition: 0.15s;
-      backdrop-filter: blur(6px);
-    }
-    #news-select:hover {
-      border-color: var(--accent);
-    }
-    #news-select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(124,58,237,0.3);
-    }
+    <style>
+      /* SELECT Bonito */
+      #news-select {
+        background: var(--card);
+        color: #e6eef6;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.15s;
+        backdrop-filter: blur(6px);
+      }
+      #news-select:hover {
+        border-color: var(--accent);
+      }
+      #news-select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.3);
+      }
 
-    /* Contenedor de noticia */
-    #news-view {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      backdrop-filter: blur(4px);
-      line-height: 1.7;
-      font-size: 16px;
-    }
+      /* Contenedor de noticia */
+      #news-view {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(4px);
+        line-height: 1.7;
+        font-size: 16px;
+      }
 
-    /* FORMATO DISCORD */
+      /* FORMATO DISCORD */
 
-    /* Blockquote */
-    .news-blockquote {
-      border-left: 4px solid var(--accent);
-      padding: 6px 10px;
-      margin: 10px 0;
-      background: rgba(255,255,255,0.03);
-      border-radius: 6px;
-      color: var(--muted);
-    }
+      /* Blockquote */
+      .news-blockquote {
+        border-left: 4px solid var(--accent);
+        padding: 6px 10px;
+        margin: 10px 0;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 6px;
+        color: var(--muted);
+      }
 
-    /* Spoiler */
-    .spoiler {
-      background: #111827;
-      color: transparent;
-      border-radius: 4px;
-      padding: 2px 4px;
-      cursor: pointer;
-      transition: 0.25s;
-    }
-    .spoiler.revealed {
-      color: #e6eef6;
-      background: rgba(124,58,237,0.35);
-    }
+      /* Spoiler */
+      .spoiler {
+        background: #111827;
+        color: transparent;
+        border-radius: 4px;
+        padding: 2px 4px;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+      .spoiler.revealed {
+        color: #e6eef6;
+        background: rgba(124, 58, 237, 0.35);
+      }
 
-    /* Codeblock */
-    .codeblock {
-      display: block;
-      background: rgba(0,0,0,0.35);
-      padding: 12px;
-      border-radius: 10px;
-      font-family: "Consolas", monospace;
-      white-space: pre-wrap;
-      margin: 12px 0;
-      font-size: 14px;
-    }
+      /* Codeblock */
+      .codeblock {
+        display: block;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 12px;
+        border-radius: 10px;
+        font-family: "Consolas", monospace;
+        white-space: pre-wrap;
+        margin: 12px 0;
+        font-size: 14px;
+      }
 
-    .news-list {
-      margin-left: 18px;
-      padding-left: 10px;
-    }
-  </style>
-</head>
+      .news-list {
+        margin-left: 18px;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="wrap">
-
-    <!-- HEADER -->
-    <header>
-      <div class="logo">
-        <img src="logo.png" alt="Nexora Logo">
-      </div>
-      <div>
-        <h1>Noticias — <strong>Nexora</strong></h1>
-        <p class="lead">Actualizaciones, cambios y novedades del bot.</p>
-        <div class="meta">
-          <div class="pill">Sistema: Noticias</div>
-          <div class="pill">Origen: GitHub</div>
+  <body>
+    <div class="wrap">
+      <!-- HEADER -->
+      <header>
+        <div class="logo">
+          <img src="logo.png" alt="Nexora Logo" />
         </div>
-      </div>
-    </header>
-
-    <!-- MAIN -->
-    <main>
-      <section>
-        <h2>Últimas noticias</h2>
-
-        <select id="news-select" style="width:100%;padding:10px;margin-bottom:20px;">
-          <option value="">Cargando noticias...</option>
-        </select>
-
-        <div id="news-view">
-          <p>Selecciona una noticia para visualizarla.</p>
+        <div>
+          <h1>Noticias — <strong>Nexora</strong></h1>
+          <p class="lead">Actualizaciones, cambios y novedades del bot.</p>
+          <div class="meta">
+            <div class="pill">Sistema: Noticias</div>
+            <div class="pill">Origen: GitHub</div>
+          </div>
         </div>
-      </section>
-    </main>
+      </header>
 
-    <!-- FOOTER -->
-    <footer>
-      <div>
-        <a href="index.html" class="link">Página Principal</a> ·
-        <a href="privacidad.html" class="link">Política de Privacidad</a> ·
-        <a href="terms.html" class="link">Términos de Servicio</a>
-      </div>
-      <div>
-        <a class="btn" href="index.html">Volver</a>
-      </div>
-    </footer>
+      <!-- MAIN -->
+      <main>
+        <section>
+          <h2>Últimas noticias</h2>
 
-  </div>
+          <select
+            id="news-select"
+            style="width: 100%; padding: 10px; margin-bottom: 20px"
+          >
+            <option value="">Cargando noticias...</option>
+          </select>
 
-  <!-- ============================================================
+          <div id="news-view">
+            <p>Selecciona una noticia para visualizarla.</p>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer>
+        <div>
+          <a href="index.html" class="link">Página Principal</a> ·
+          <a href="privacidad.html" class="link">Política de Privacidad</a> ·
+          <a href="terms.html" class="link">Términos de Servicio</a>
+        </div>
+        <div>
+          <a class="btn" href="index.html">Volver</a>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ============================================================
        SCRIPT COMPLETO (NEWS + PARSER DISCORD)
   ============================================================ -->
-  <script>
-    const OWNER = "hall12593";
-    const REPO  = "NexoraBot";
+    <script>
+      const OWNER = "hall12593";
+      const REPO = "NexoraBot";
 
-    const INDEX_URL = `https://${OWNER}.github.io/${REPO}/news/index.json`;
-    const BASE_URL  = `https://${OWNER}.github.io/${REPO}/`;
+      const INDEX_URL = `https://${OWNER}.github.io/${REPO}/news/index.json`;
+      const BASE_URL = `https://${OWNER}.github.io/${REPO}/`;
 
-    /* ------------ PARSER DE FORMATO DISCORD ------------ */
-    function parseDiscordFormatting(text) {
-      if (!text) return "";
+      /* ------------ PARSER DE FORMATO DISCORD ------------ */
+      function parseDiscordFormatting(text) {
+        if (!text) return "";
 
-      text = text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        // Escapar HTML
+        text = text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
 
-      text = text.replace(/^> (.*)$/gm, `<div class="news-blockquote">$1</div>`);
-
-      text = text.replace(/```([^`]+)```/gs, `<div class="codeblock">$1</div>`);
-
-      text = text.replace(/`([^`]+)`/g, `<code>$1</code>`);
-
-      text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-      text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
-
-      text = text.replace(/\|\|(.*?)\|\|/g, `<span class="spoiler">$1</span>`);
-
-      text = text.replace(/^(?:-|\•) (.*)$/gm, `<li>$1</li>`);
-      text = text.replace(/(<li>[\s\S]*?<\/li>)/g, `<ul class="news-list">$1</ul>`);
-
-      text = text.replace(/\n/g, "<br>");
-
-      return text;
-    }
-
-    document.addEventListener("click", e => {
-      if (e.target.classList.contains("spoiler")) {
-        e.target.classList.toggle("revealed");
-      }
-    });
-
-    /* ------------ CARGAR INDEX ------------ */
-    async function loadIndex() {
-      const select = document.getElementById("news-select");
-
-      try {
-        const res = await fetch(INDEX_URL);
-        const indexList = await res.json();
-
-        select.innerHTML = `<option value="">Selecciona una noticia...</option>`;
-
-        indexList.forEach(entry => {
-          const op = document.createElement("option");
-          op.value = entry.ruta;
-          op.textContent = `${entry.titulo} (${entry.fecha})`;
-          select.appendChild(op);
+        // CODEBLOCKS multiline ```lang ... ```
+        text = text.replace(/```([\s\S]*?)```/g, (match, code) => {
+          return `<div class="codeblock">${code}</div>`;
         });
 
-        if (indexList.length > 0) {
-          loadNews(indexList[0].ruta);
-          select.value = indexList[0].ruta;
-        }
+        // INLINE CODE
+        text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
 
-      } catch (err) {
-        document.getElementById("news-view").innerHTML =
-          `<p style="color:red">❌ Error cargando index.json.</p>`;
-        console.error(err);
+        // QUOTES >
+        text = text.replace(/^> (.*)$/gm, `<div class="blockquote">$1</div>`);
+
+        // SPOILERS
+        text = text.replace(
+          /\|\|(.*?)\|\|/g,
+          `<span class="spoiler">$1</span>`
+        );
+
+        // BOLD + UNDERLINE __**
+        text = text.replace(
+          /__\*\*(.*?)\*\*__/g,
+          '<span class="underline bold">$1</span>'
+        );
+
+        // BOLD **text**
+        text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+        // UNDERLINE __text__
+        text = text.replace(/__(.*?)__/g, '<span class="underline">$1</span>');
+
+        // BOLD + ITALIC ***text***
+        text = text.replace(
+          /\*\*\*(.*?)\*\*\*/g,
+          "<strong><em>$1</em></strong>"
+        );
+
+        // ITALIC *text* o _text_
+        text = text.replace(/(^|[^*])\*(?!\*)(.*?)\*(?!\*)/g, "$1<em>$2</em>");
+        text = text.replace(/(^|[^_])_(?!_)(.*?)_(?!_)/g, "$1<em>$2</em>");
+
+        // STRIKETHROUGH ~~text~~
+        text = text.replace(/~~(.*?)~~/g, "<del>$1</del>");
+
+        // LISTAS - o •
+        text = text.replace(/^(?:-|\•) (.*)$/gm, `<li>$1</li>`);
+        text = text.replace(
+          /(<li>[\s\S]*?<\/li>)/g,
+          `<ul class="news-list">$1</ul>`
+        );
+
+        // AUTO-LINKS
+        text = text.replace(
+          /(https?:\/\/[^\s]+)/g,
+          `<a href="$1" target="_blank" rel="noopener">$1</a>`
+        );
+
+        // Saltos de línea
+        text = text.replace(/\n/g, "<br>");
+
+        return text;
       }
-    }
 
-    /* ------------ CARGAR NOTICIA ------------ */
-    async function loadNews(path) {
-      try {
-        const res = await fetch(BASE_URL + path);
-        const data = await res.json();
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("spoiler")) {
+          e.target.classList.toggle("revealed");
+        }
+      });
 
-        let html = `
+      /* ------------ CARGAR INDEX ------------ */
+      async function loadIndex() {
+        const select = document.getElementById("news-select");
+
+        try {
+          const res = await fetch(INDEX_URL);
+          const indexList = await res.json();
+
+          select.innerHTML = `<option value="">Selecciona una noticia...</option>`;
+
+          indexList.forEach((entry) => {
+            const op = document.createElement("option");
+            op.value = entry.ruta;
+            op.textContent = `${entry.titulo} (${entry.fecha})`;
+            select.appendChild(op);
+          });
+
+          if (indexList.length > 0) {
+            loadNews(indexList[0].ruta);
+            select.value = indexList[0].ruta;
+          }
+        } catch (err) {
+          document.getElementById(
+            "news-view"
+          ).innerHTML = `<p style="color:red">❌ Error cargando index.json.</p>`;
+          console.error(err);
+        }
+      }
+
+      /* ------------ CARGAR NOTICIA ------------ */
+      async function loadNews(path) {
+        try {
+          const res = await fetch(BASE_URL + path);
+          const data = await res.json();
+
+          let html = `
           <h2>${data.titulo}</h2>
           <p class="lead">${data.fecha} — ${data.hora ?? "??:??"}</p>
 
@@ -227,28 +273,27 @@
           </div>
         `;
 
-        if (data.imagen_base64) {
-          html += `
+          if (data.imagen_base64) {
+            html += `
             <img src="data:image/png;base64,${data.imagen_base64}"
                  style="max-width:100%; border-radius:10px;margin-top:15px;">
           `;
+          }
+
+          document.getElementById("news-view").innerHTML = html;
+        } catch (err) {
+          document.getElementById(
+            "news-view"
+          ).innerHTML = `<p style="color:red">❌ Error cargando noticia.</p>`;
+          console.error(err);
         }
-
-        document.getElementById("news-view").innerHTML = html;
-
-      } catch (err) {
-        document.getElementById("news-view").innerHTML =
-          `<p style="color:red">❌ Error cargando noticia.</p>`;
-        console.error(err);
       }
-    }
 
-    document.getElementById("news-select").addEventListener("change", e => {
-      if (e.target.value) loadNews(e.target.value);
-    });
+      document.getElementById("news-select").addEventListener("change", (e) => {
+        if (e.target.value) loadNews(e.target.value);
+      });
 
-    loadIndex();
-  </script>
-
-</body>
+      loadIndex();
+    </script>
+  </body>
 </html>
