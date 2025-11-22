@@ -1,0 +1,84 @@
+<div id="news-container" style="max-width: 700px; margin: auto; font-family: sans-serif;">
+    <h1>📰 Noticias del Bot</h1>
+
+    <select id="news-select" style="padding: 8px; width: 100%; margin-bottom: 15px;">
+        <option value="">Selecciona una noticia...</option>
+    </select>
+
+    <div id="news-view" style="padding: 15px; border: 1px solid #ccc; border-radius: 6px;">
+        <p>Selecciona una noticia para verla.</p>
+    </div>
+</div>
+
+<script>
+const OWNER = "hall12593";
+const REPO  = "NexoraBot";
+
+// Rutas base
+const INDEX_URL = `https://${OWNER}.github.io/${REPO}/news/index.json`;
+const BASE_URL  = `https://${OWNER}.github.io/${REPO}/`;
+
+async function loadIndex() {
+    try {
+        const res = await fetch(INDEX_URL);
+        const indexList = await res.json();
+
+        const select = document.getElementById("news-select");
+        select.innerHTML = `<option value="">Selecciona una noticia...</option>`;
+
+        indexList.forEach(entry => {
+            const op = document.createElement("option");
+            op.value = entry.ruta;
+            op.textContent = `${entry.titulo} (${entry.fecha})`;
+            select.appendChild(op);
+        });
+
+        // Cargar automáticamente la más reciente
+        if (indexList.length > 0) {
+            loadNews(indexList[0].ruta);
+            select.value = indexList[0].ruta;
+        }
+
+    } catch (err) {
+        document.getElementById("news-view").innerHTML =
+            `<p style="color:red">❌ Error cargando index.json</p>`;
+        console.error(err);
+    }
+}
+
+async function loadNews(path) {
+    try {
+        const res = await fetch(BASE_URL + path);
+        const data = await res.json();
+
+        let html = `
+            <h2>${data.titulo}</h2>
+            <small>${data.fecha} — ${data.hora ?? "??:??"}</small>
+            <p style="white-space: pre-line; margin-top: 15px;">${data.contenido}</p>
+        `;
+
+        if (data.imagen_base64) {
+            html += `
+                <img src="data:image/png;base64,${data.imagen_base64}"
+                     style="max-width:100%; margin-top:15px; border-radius:8px;">
+            `;
+        }
+
+        document.getElementById("news-view").innerHTML = html;
+
+    } catch (err) {
+        document.getElementById("news-view").innerHTML =
+            `<p style="color:red">❌ Error cargando noticia: ${path}</p>`;
+        console.error(err);
+    }
+}
+
+document.getElementById("news-select").addEventListener("change", (e) => {
+    if (e.target.value !== "") {
+        loadNews(e.target.value);
+    }
+});
+
+// Cargar al iniciar
+loadIndex();
+</script>
