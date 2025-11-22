@@ -1,7 +1,7 @@
 {
   "fecha": "2025-11-22",
   "hora": "11:37",
-  "titulo": "Test2",
-  "contenido": "Test2",
+  "titulo": "Noticias, IP, y sistema de errores",
+  "contenido": "Aloha, bueno, namas pa decir que pues, modifique este sistema de noticias, para asi que en la [pagina web](https://hall12593.github.io/NexoraBot/) proximamente se puedan ver las noticias del bot ahi tambien, arregle el comando /info-ip, para que ya se pueda tener informacion de una ip, y me agrege un sistema de errores para que pues me avise de algun error critico que le pase al bot y asi yo arreglarlo mas rapido, bueno, recuerden existe el /bugreport para reportarme algun error/bug del bot, gracias!",
   "imagen_base64": null
 }
