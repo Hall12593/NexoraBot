@@ -1,5 +1,10 @@
 [
   {
+    "titulo": "xd",
+    "fecha": "2025-11-22",
+    "ruta": "news/2025/noviembre/2025-11-22--2.json"
+  },
+  {
     "titulo": "Test3",
     "fecha": "2025-11-22",
     "ruta": "news/2025/noviembre/2025-11-22--1.json"
