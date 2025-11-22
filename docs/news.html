@@ -211,10 +211,10 @@
           `<ul class="news-list">$1</ul>`
         );
 
-        // AUTO-LINKS
+        // MARKDOWN LINK: [texto](url)
         text = text.replace(
-          /(https?:\/\/[^\s]+)/g,
-          `<a href="$1" target="_blank" rel="noopener">$1</a>`
+          /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+          `<a href="$2" target="_blank" rel="noopener">$1</a>`
         );
 
         // Saltos de línea
