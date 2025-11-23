@@ -9,6 +9,10 @@ async function loadStats() {
     const container = document.getElementById("stats-container");
     container.innerHTML = "";
 
+    // Guardamos updated_at para mostrarlo AL FINAL
+    const updatedAt = stats.updated_at;
+    delete stats.updated_at;
+
     for (const key in stats) {
       const value = stats[key];
 
@@ -24,15 +28,6 @@ async function loadStats() {
         `;
       }
 
-      // --- UPDATED_AT ---
-      else if (key === "updated_at") {
-        const fecha = new Date(value);
-        card.innerHTML = `
-          <div class="stat-title">${formatTitle(key)}</div>
-          <div class="stat-value">${fecha.toLocaleString()}</div>
-        `;
-      }
-
       // --- VALORES NORMALES ---
       else {
         card.innerHTML = `
@@ -43,6 +38,15 @@ async function loadStats() {
 
       container.appendChild(card);
     }
+
+    // --- AGREGAR "Última Actualización" ABAJO DEL TODO ---
+    const updatedCard = document.createElement("div");
+    updatedCard.className = "stat-card updated-card";
+    updatedCard.innerHTML = `
+      <div class="stat-title">Última Actualización</div>
+      <div class="stat-value">${new Date(updatedAt).toLocaleString()}</div>
+    `;
+    container.appendChild(updatedCard);
 
   } catch (err) {
     console.error("Error cargando estadísticas:", err);
@@ -57,8 +61,7 @@ function formatTitle(key) {
     users: "Usuarios",
     commands: "Comandos Disponibles",
     ping: "Ping",
-    uptime: "Tiempo Activo",
-    updated_at: "Última Actualización"
+    uptime: "Uptime"
   };
 
   return titles[key] || key.replace(/_/g, " ");
