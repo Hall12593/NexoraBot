@@ -7,15 +7,13 @@ async function loadStats() {
     const stats = await res.json();
 
     const container = document.getElementById("stats-container");
-    container.innerHTML = "";
+    container.innerHTML = ""; // vaciar grid
 
     // Guardamos updated_at
     const updatedAt = stats.updated_at;
     delete stats.updated_at;
 
-    const grid = document.createElement("div");
-    grid.className = "stats-grid";
-
+    // Crear tarjetas directamente dentro del grid existente
     for (const key in stats) {
       const value = stats[key];
 
@@ -35,17 +33,16 @@ async function loadStats() {
         `;
       }
 
-      grid.appendChild(card);
+      container.appendChild(card);
     }
-
-    container.appendChild(grid);
 
     // FOOTER ELEGANTE PARA LA FECHA
     const updatedFooter = document.createElement("div");
     updatedFooter.className = "stats-updated";
     updatedFooter.textContent = `Última actualización: ${new Date(updatedAt).toLocaleString()}`;
 
-    container.appendChild(updatedFooter);
+    // Lo colocamos después del grid
+    container.insertAdjacentElement("afterend", updatedFooter);
 
   } catch (err) {
     console.error("Error cargando estadísticas:", err);
