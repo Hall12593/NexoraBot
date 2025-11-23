@@ -1,1 +1,67 @@
-(function(_0x221bbb,_0x1b608c){const _0x28b68d=_0xc161,_0x136f78=_0x221bbb();while(!![]){try{const _0x374ce2=-parseInt(_0x28b68d(0x1bf))/0x1+parseInt(_0x28b68d(0x1c9))/0x2*(parseInt(_0x28b68d(0x1be))/0x3)+-parseInt(_0x28b68d(0x1c3))/0x4+-parseInt(_0x28b68d(0x1bb))/0x5*(-parseInt(_0x28b68d(0x1b5))/0x6)+-parseInt(_0x28b68d(0x1c0))/0x7*(parseInt(_0x28b68d(0x1c8))/0x8)+parseInt(_0x28b68d(0x1b9))/0x9+parseInt(_0x28b68d(0x1cb))/0xa;if(_0x374ce2===_0x1b608c)break;else _0x136f78['push'](_0x136f78['shift']());}catch(_0x336316){_0x136f78['push'](_0x136f78['shift']());}}}(_0x5860,0xd5d1e));async function loadStats(){const _0x38f28b=_0xc161;try{const _0x2d6752=await fetch('./stats.json',{'cache':'no-cache'});if(!_0x2d6752['ok'])throw new Error(_0x38f28b(0x1b7));const _0x180e2b=await _0x2d6752[_0x38f28b(0x1c1)](),_0xf94344=document[_0x38f28b(0x1cd)](_0x38f28b(0x1bc));_0xf94344[_0x38f28b(0x1b8)]='';for(const _0x25647e in _0x180e2b){const _0x385c42=document['createElement'](_0x38f28b(0x1c6));_0x385c42[_0x38f28b(0x1cc)]='stat-card',_0x385c42[_0x38f28b(0x1b8)]=_0x38f28b(0x1ca)+formatTitle(_0x25647e)+_0x38f28b(0x1c2)+_0x180e2b[_0x25647e][_0x38f28b(0x1b6)]()+_0x38f28b(0x1c7),_0xf94344['appendChild'](_0x385c42);}}catch(_0x35b79f){console['error']('Error\x20cargando\x20estadísticas:',_0x35b79f),document['getElementById'](_0x38f28b(0x1bc))[_0x38f28b(0x1b8)]=_0x38f28b(0x1bd);}}function _0x5860(){const _0x30cbf5=['39256690ZLgbCl','className','getElementById','6wgbVbE','toLocaleString','No\x20se\x20pudo\x20cargar\x20stats.json','innerHTML','3343383XLSzPY','Ping','68605AjtOVm','stats-container','<p>No\x20se\x20pudieron\x20cargar\x20las\x20estadísticas.</p>','41241hhesGR','1462541sjrAyX','7JDXsGN','json','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22stat-value\x22>','4481128nXpDEy','Usuarios','Comandos\x20Disponibles','div','</div>\x0a\x20\x20\x20\x20\x20\x20','7807768PDsvEv','18hWOorb','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22stat-title\x22>'];_0x5860=function(){return _0x30cbf5;};return _0x5860();}function _0xc161(_0x7dc4d,_0x541f75){const _0x586041=_0x5860();return _0xc161=function(_0xc16120,_0x1fbc42){_0xc16120=_0xc16120-0x1b5;let _0x24a868=_0x586041[_0xc16120];return _0x24a868;},_0xc161(_0x7dc4d,_0x541f75);}function formatTitle(_0x4c398f){const _0x22b6bd=_0xc161,_0x1f86a4={'servers':'Servidores','users':_0x22b6bd(0x1c4),'commands':_0x22b6bd(0x1c5),'ping':_0x22b6bd(0x1ba)};return _0x1f86a4[_0x4c398f]||_0x4c398f['replace'](/_/g,'\x20');}loadStats();
+async function loadStats() {
+  try {
+    const res = await fetch("stats.json", { cache: "no-cache" });
+
+    if (!res.ok) throw new Error("No se pudo cargar stats.json");
+
+    const stats = await res.json();
+
+    const container = document.getElementById("stats-container");
+    container.innerHTML = "";
+
+    for (const key in stats) {
+      const value = stats[key];
+
+      const card = document.createElement("div");
+      card.className = "stat-card";
+
+      // --- UPTIME ---
+      if (key === "uptime") {
+        card.innerHTML = `
+          <div class="stat-title">${formatTitle(key)}</div>
+          <div class="stat-value">${value.formatted}</div>
+          <div class="stat-subvalue">${value.ms.toLocaleString()} ms</div>
+        `;
+      }
+
+      // --- UPDATED_AT ---
+      else if (key === "updated_at") {
+        const fecha = new Date(value);
+        card.innerHTML = `
+          <div class="stat-title">${formatTitle(key)}</div>
+          <div class="stat-value">${fecha.toLocaleString()}</div>
+        `;
+      }
+
+      // --- VALORES NORMALES ---
+      else {
+        card.innerHTML = `
+          <div class="stat-title">${formatTitle(key)}</div>
+          <div class="stat-value">${value.toLocaleString()}</div>
+        `;
+      }
+
+      container.appendChild(card);
+    }
+
+  } catch (err) {
+    console.error("Error cargando estadísticas:", err);
+    document.getElementById("stats-container").innerHTML =
+      "<p>No se pudieron cargar las estadísticas.</p>";
+  }
+}
+
+function formatTitle(key) {
+  const titles = {
+    servers: "Servidores",
+    users: "Usuarios",
+    commands: "Comandos Disponibles",
+    ping: "Ping",
+    uptime: "Tiempo Activo",
+    updated_at: "Última Actualización"
+  };
+
+  return titles[key] || key.replace(/_/g, " ");
+}
+
+loadStats();
