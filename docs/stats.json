@@ -1,11 +1,11 @@
 {
   "servers": 82,
-  "users": 125,
+  "users": 135,
   "commands": 0,
-  "ping": 165,
+  "ping": 64,
   "uptime": {
-    "ms": 14400048,
-    "formatted": "4h 0m 0s"
+    "ms": 18000051,
+    "formatted": "5h 0m 0s"
   },
-  "updated_at": "2025-11-23T08:36:26.501Z"
+  "updated_at": "2025-11-23T09:36:26.504Z"
 }
