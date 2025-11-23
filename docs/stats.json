@@ -1,8 +1,8 @@
 {
   "servers": 83,
-  "users": 6235,
+  "users": 6237,
   "commands": 56,
-  "ping": "-1ms",
-  "uptime": "0d 0h 0m 1s",
-  "updated_at": "2025-11-23T18:55:37.924Z"
+  "ping": "69ms",
+  "uptime": "0d 1h 0m 1s",
+  "updated_at": "2025-11-23T19:55:37.725Z"
 }
