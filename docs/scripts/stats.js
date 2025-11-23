@@ -9,9 +9,12 @@ async function loadStats() {
     const container = document.getElementById("stats-container");
     container.innerHTML = "";
 
-    // Guardamos updated_at para mostrarlo AL FINAL
+    // Guardamos updated_at
     const updatedAt = stats.updated_at;
     delete stats.updated_at;
+
+    const grid = document.createElement("div");
+    grid.className = "stats-grid";
 
     for (const key in stats) {
       const value = stats[key];
@@ -19,34 +22,30 @@ async function loadStats() {
       const card = document.createElement("div");
       card.className = "stat-card";
 
-      // --- UPTIME ---
       if (key === "uptime") {
         card.innerHTML = `
           <div class="stat-title">${formatTitle(key)}</div>
           <div class="stat-value">${value.formatted}</div>
           <div class="stat-subvalue">${value.ms.toLocaleString()} ms</div>
         `;
-      }
-
-      // --- VALORES NORMALES ---
-      else {
+      } else {
         card.innerHTML = `
           <div class="stat-title">${formatTitle(key)}</div>
           <div class="stat-value">${value.toLocaleString()}</div>
         `;
       }
 
-      container.appendChild(card);
+      grid.appendChild(card);
     }
 
-    // --- AGREGAR "Última Actualización" ABAJO DEL TODO ---
-    const updatedCard = document.createElement("div");
-    updatedCard.className = "stat-card updated-card";
-    updatedCard.innerHTML = `
-      <div class="stat-title">Última Actualización</div>
-      <div class="stat-value">${new Date(updatedAt).toLocaleString()}</div>
-    `;
-    container.appendChild(updatedCard);
+    container.appendChild(grid);
+
+    // FOOTER ELEGANTE PARA LA FECHA
+    const updatedFooter = document.createElement("div");
+    updatedFooter.className = "stats-updated";
+    updatedFooter.textContent = `Última actualización: ${new Date(updatedAt).toLocaleString()}`;
+
+    container.appendChild(updatedFooter);
 
   } catch (err) {
     console.error("Error cargando estadísticas:", err);
