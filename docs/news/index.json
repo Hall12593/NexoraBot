@@ -1,5 +1,10 @@
 [
   {
+    "titulo": "Comandos añadidos",
+    "fecha": "2025-11-23",
+    "altruta": "docs/news/2025/noviembre/2025-11-23.json"
+  },
+  {
     "titulo": "Noticias, IP, y sistema de errores",
     "fecha": "2025-11-22",
     "ruta": "news/2025/noviembre/2025-11-22.json",
