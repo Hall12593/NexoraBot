@@ -1,5 +1,10 @@
 [
   {
+    "titulo": "Comandos, tickets y mas modificaciones",
+    "fecha": "2025-11-24",
+    "altruta": "docs/news/2025/noviembre/2025-11-24.json"
+  },
+  {
     "titulo": "Comandos añadidos",
     "fecha": "2025-11-23",
     "ruta": "news/2025/noviembre/2025-11-23.json",
