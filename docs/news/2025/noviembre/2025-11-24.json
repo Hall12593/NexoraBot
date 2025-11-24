@@ -1,0 +1,7 @@
+{
+  "fecha": "2025-11-24",
+  "hora": "00:09",
+  "titulo": "Comandos, tickets y mas modificaciones",
+  "contenido": "-# ando muy activo ahorita eh?\n\nBueno que me puse las pilas, modifique algunos comandos para que los permisos sean apropiados y digan que permisos requieres para que realmente puedas usar el comando\n\nElimine 2 comandos de diversion que estoy 102% seguro que nadie uso durante el periodo que lo añadi (ayer a hoy) asi que no creo que afecte en algo\n\nY, lo mas importante, Arregle el comando /paneltickets\n\n-# wohooo yay.....\n\nPos eso, arregle el comando asi que ya se puede actualizar el panel desde cualquier canal sin complicaciones, y, tambien arregle lo de crear las categorias de tickets, por que parecia que no funcionaba realmente, asi que pues ahista, arreglao",
+  "imagen_base64": null
+}
