@@ -1,5 +1,10 @@
 [
   {
+    "titulo": "Menos caidas del bot",
+    "fecha": "2025-11-25",
+    "altruta": "docs/news/2025/noviembre/2025-11-25.json"
+  },
+  {
     "titulo": "Comandos, tickets y mas modificaciones",
     "fecha": "2025-11-24",
     "ruta": "news/2025/noviembre/2025-11-24.json",
